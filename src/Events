@@ -1,0 +1,35 @@
+| Event Name                      | Google HEART |  Notes |
+|---------------------------------|--------------|-------|
+## ❤️ **H - Happiness**  
+| `social_share_clicked`          | ✅           | Indicates excitement |
+| `click_join_discord`            | ✅           | Community enthusiasm |
+
+## 🔥 **E - Engagement**  
+| `page_view`                     | ✅           | Initial exposure |
+| `scroll_depth`                  | ✅           | Content engagement depth |
+| `time_on_page`                  | ✅           | Interest duration |
+| `video_play_started`            | ✅           | Media interaction |
+| `video_play_ended`              | ✅           | Media completion |
+| `video_play_paused`             | ✅           | Media depth (25%, 50%, etc.) |
+| `image_interaction`             | ✅           | Gallery clicks/zooms |
+| `click_specific_tab`            | ✅           | Feature exploration |
+
+## 🚀 **A - Adoption**  
+| `click_wishlist_steam`          | ✅           | Purchase intent |
+| `click_sign_up_newsletter`      | ✅           | Email list growth |
+| `click_follow_social_media`     | ✅           | Social media growth |
+| `click_pre_order`               | ✅           | Revenue signal |
+| `submit_newsletter_form`        | ✅ (implicit)| Confirmed opt-in |
+
+## 🔄 **R - Retention**  
+| `repeat_page_views`             | ✅           | Pre-launch interest |
+| `click_join_discord`            | ✅           | Community retention |
+
+## ✅ **T - Task Success**  
+| `click_wishlist_steam`          | ✅           | Success = added to Steam wishlist |
+| `click_pre_order`               | ✅           | Success = completed purchase |
+| `submit_newsletter_form`        | ✅           | Success = confirmed subscription |
+
+## 📊 **Technical **  
+| `utm_source/medium/campaign`    | ❌           | Campaign attribution |
+| `device_type/browser/OS`        | ❌           | Tech diagnostics |

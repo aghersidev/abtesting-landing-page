@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #f0e6ff;
+  color: #5a4a6a;
+  image-rendering: pixelated;
+  scroll-padding-top: 4rem; /* Offset for fixed navbar */
+}
+
+.pixel-border {
+  border-style: solid;
+  border-width: 4px;
+  border-color: #5a4a6a;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+}
+
+.pixel-button {
+  background-color: #ff9eb7;
+  color: #5a4a6a;
+  transition: all 0.1s;
+  display: inline-block;
+  text-align: center;
+  padding: 0.5rem 1rem; /* Default padding */
+  cursor: pointer;
+}
+
+.pixel-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #5a4a6a;
+}
+
+.pixel-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 #5a4a6a;
+}
+
+h1, h2, h3 {
+  text-shadow: 4px 4px 0 rgba(90, 74, 106, 0.2);
+}
+
+a {
+  color: #8a2be2;
+  text-decoration: underline;
+}
+a:hover {
+   color: #ff69b4;
+}
+
+nav {
+   background-color: #e0d6ef;
+}
+
+nav a {
+  text-decoration: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #5a4a6a; /* Ensure nav links have base color */
+}
+nav a:hover {
+   background-color: #ffc0cb;
+   color: #5a4a6a; /* Keep color on hover */
+   text-decoration: none;
+}
+.nav-title {
+   color: #5a4a6a;
+   font-size: 1.5rem;
+   font-weight: bold;
+}
+
+.hero-section {
+   background-color: #d1c4e9;
+   padding-top: 6rem;
+   padding-bottom: 4rem;
+}
+
+.feature-card {
+   background-color: #e1bee7;
+}
+
+.countdown-item {
+   background-color: rgba(90, 74, 106, 0.7);
+   color: #f0e6ff; /* Light text on dark background */
+}
+.countdown-item div:last-child {
+  color: #e0d6ef; /* Slightly darker for labels */
+}
+
+/* Styles for the popup */
+#popupOverlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+}
+#popupContent {
+   background-color: #b39ddb; /* Use newsletter section color */
+   padding: 2rem;
+   max-width: 500px; /* Limit popup width */
+   width: 90%;
+   position: relative; /* Needed for absolute positioning of close button */
+}
+#closePopupBtn {
+   position: absolute;
+   top: 8px; /* Adjust position */
+   right: 8px; /* Adjust position */
+   background-color: #ff9eb7; /* Same as pixel-button */
+   color: #5a4a6a;
+   padding: 4px 8px; /* Smaller padding */
+   font-size: 0.8rem; /* Smaller font */
+   box-shadow: 4px 4px 0 rgba(0,0,0,0.1); /* Consistent shadow */
+}
+#closePopupBtn:hover {
+   transform: translate(1px, 1px);
+   box-shadow: 2px 2px 0 #5a4a6a;
+}
+#closePopupBtn:active {
+   transform: translate(2px, 2px);
+   box-shadow: 1px 1px 0 #5a4a6a;
+}
+
+#newsletter {
+   background-color: #c5b9d6; /* Slightly different bg for distinction if desired, or use bg-purple-100 */
+}
+#newsletter .newsletter-box {
+   background-color: #b39ddb; /* Inner box color */
+   padding: 2rem;
+}
+
+input[type="text"], input[type="email"] {
+   background-color: #fff;
+   color: #5a4a6a;
+   padding: 0.75rem 1rem;
+   width: 100%; /* Ensure inputs take full width */
+   margin-bottom: 0.75rem; /* space below inputs */
+}
+input[type="text"]::placeholder, input[type="email"]::placeholder {
+  color: #a094ae;
+}
+
+footer {
+   background-color: #a094ae;
+}
+
+.fab, .fas {
+   display: none;
+}
+
+img {
+  image-rendering: pixelated;
+}
+
+section {
+   padding-top: 3rem;
+   padding-bottom: 3rem;
+}
+section h2 {
+  font-size: 1.875rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+section .divider {
+  width: 5rem;
+  height: 4px;
+  background-color: #5a4a6a;
+  margin: 0 auto 4rem auto;
+}
+
