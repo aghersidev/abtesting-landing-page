@@ -1,12 +1,15 @@
-// src/components/VisibilityTracker.js
-import { useRef } from 'react';
+
+import { ReactNode, useRef } from 'react';
 import { useTrackVisibility } from '../hooks/useTrackVisibility';
 
-const VisibilityTracker = ({ children, eventName }) => {
-  const ref = useRef(null);
+interface VisibilityTrackerProps {
+  children: ReactNode;
+  eventName: string;
+}
 
-  useTrackVisibility(ref, eventName);
-
+const VisibilityTracker = ({ children, eventName }: VisibilityTrackerProps) => {  
+  const ref = useRef<HTMLDivElement|null>(null);
+  useTrackVisibility({ref, eventName});
   return <div ref={ref}>{children}</div>;
 };
 

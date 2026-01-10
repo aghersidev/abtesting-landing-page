@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import useUmami from './useUmami';
 
-interface UseTrackVisibilityProps {
-  ref: React.RefObject<HTMLElement>;
+interface UseTrackVisibilityProps <T extends HTMLElement> {
+  ref: React.RefObject<T | null>;
   eventName: string;
 }
 
-export function useTrackVisibility({ ref, eventName }: UseTrackVisibilityProps): void {
+export function useTrackVisibility<T extends HTMLElement>({ ref, eventName }: UseTrackVisibilityProps): void {
   const { trackEvent } = useUmami();
 
   useEffect(() => {
