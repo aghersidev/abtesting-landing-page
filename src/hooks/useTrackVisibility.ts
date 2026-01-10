@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
 import useUmami from './useUmami';
 
-export function useTrackVisibility(ref, eventName) {
+interface UseTrackVisibilityProps {
+  ref: React.RefObject<HTMLElement>;
+  eventName: string;
+}
+
+export function useTrackVisibility({ ref, eventName }: UseTrackVisibilityProps): void {
   const { trackEvent } = useUmami();
 
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             trackEvent('scroll_depth', { type: eventName, element: entry.target.id });
