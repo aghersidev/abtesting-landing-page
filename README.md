@@ -46,13 +46,6 @@ Install the required dependencies using npm or yarn:
 ```
 npm install
 ```
-
-or
-
-```
-yarn install
-```
-
 ---
 
 ### 4️⃣ Start the Development Server
