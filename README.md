@@ -1,74 +1,130 @@
-# 🚀 Pixel Reborn Landing Page
+# Pixel Reborn Landing Page
 
-Welcome to the **Pixel Reborn Landing Page** project! This repository contains a React + TypeScript + Vite-based landing page for the upcoming game **Pixel Reborn**. Follow the steps below to set up the project on your local machine and start contributing or testing.
-
----
-
-## 🎨 Preview
-
-![Pixel Reborn Landing Page](https://via.placeholder.com/1200x600?text=Pixel+Reborn+Landing+Page+Preview)
+This repo contains a **landing page for Pixel Reborn** videogame, it is made with **React, TypeScript and Vite**, and highlights usage of A/B testing and event tracking with **GrowthBook** and **Umami**.
 
 ---
 
-## 🛠️ Installation Guide
+## Pre-requisites
 
-### 1️⃣ Prerequisites
-
-Before you begin, ensure you have the following installed on your system:
-
-- **Node.js**  
-  [Download Node.js](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**  
-  [Learn about npm](https://docs.npmjs.com/) or [Learn about Yarn](https://yarnpkg.com/)
+* **Node.js** and **npm**
+* **Docker** y **Docker Compose** (to self host Umami and GrowthBook)
 
 ---
 
-### 2️⃣ Clone the Repository
+## Installation
 
-Open your terminal and run the following command to clone the repository:
+1. **Clone the repository**:
 
 ```bash
 git clone https://github.com/your-username/abtesting-landing-page.git
-```
-
-Navigate into the project directory:
-
-```
 cd abtesting-landing-page
 ```
 
+2. **Install dependencies**:
 
----
-
-### 3️⃣ Install Dependencies
-Install the required dependencies using npm or yarn:
-
+```bash
+npm ci
 ```
-npm install
-```
----
 
-### 4️⃣ Start the Development Server
-Run the following command to start the Vite development server:
+3. **Environment variables**:
 
+Modify the `.env` file with your own values:
+
+```env
+REACT_APP_UMAMI_SITE_ID=umami-site-id
+REACT_APP_UMAMI_URL=https://server-umami.com
+REACT_APP_GB_CLIENT_KEY=growthbook-client-key
 ```
+
+> Note: these are public keys for the scripts to talk to the servers.
+
+4. **Launch app in dev mode**:
+
+```bash
 npm run dev
 ```
 
-or
-
-```
-yarn dev
-```
-
-This will start the development server and provide you with a local URL (e.g., http://localhost:5173) to view the project in your browser.
+Your app will be live on something like `http://localhost:5173`.
 
 ---
 
-### 📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Launch self-hosted Umamim and GrowthBook
+
+### Umami
+
+```bash
+docker run -d \
+  -e DATABASE_URL=postgres://umami:umami@localhost:5432/umami \
+  -e UMAMI_ALLOWED_ORIGINS=https://localhost:5173 \
+  -p 3000:3000 \
+  --name umami umami/umami
+```
+
+Access `http://localhost:3000` to add  your **site** and get the `siteId`.
 
 ---
 
-### 💬 Support
-If you encounter any issues or have questions, feel free to open an issue in the repository
+### GrowthBook
+
+```yaml
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: gbuser
+      POSTGRES_PASSWORD: gbpass
+      POSTGRES_DB: growthbook
+    ports:
+      - "5432:5432"
+
+  growthbook-api:
+    image: growthbook/growthbook-api:latest
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://gbuser:gbpass@postgres:5432/growthbook
+      PORT: 3100
+    ports:
+      - "3100:3100"
+
+  growthbook-ui:
+    image: growthbook/growthbook-ui:latest
+    depends_on:
+      - growthbook-api
+    environment:
+      REACT_APP_GB_API_HOST: http://localhost:3100
+    ports:
+      - "3000:3000"
+```
+
+Access `http://localhost:3000` to create experiments and genereate the **clientKey**.
+
+---
+
+### Configure Feature Flags
+
+1. Log into **GrowthBook UI**.
+2. Create a **Feature Flag** called:
+
+```
+mediaType
+```
+
+3. Define two variations:
+
+* `"trailer"`
+* `"images"`
+
+---
+
+## Usage
+
+* App runs with **A/B testing GrowthBook** and **tracking with Umami**.
+* `useUmami` sends eventos and views.
+
+---
+
+## Licence
+
+This project is under **MIT License**. Read the LICENSE.
