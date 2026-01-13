@@ -6,7 +6,7 @@ interface UseTrackVisibilityProps <T extends HTMLElement> {
   eventName: string;
 }
 
-export function useTrackVisibility<T extends HTMLElement>({ ref, eventName }: UseTrackVisibilityProps): void {
+export function useTrackVisibility<T extends HTMLElement>({ ref, eventName }: UseTrackVisibilityProps<T>): void {
   const { trackEvent } = useUmami();
 
   useEffect(() => {

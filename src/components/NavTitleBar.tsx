@@ -1,6 +1,6 @@
 import useUmami from '../hooks/useUmami';
 
-export default function NavTitleBar({ mediaType }) {
+export default function NavTitleBar(mediaType : string) {
   const { trackEvent } = useUmami();
 
   return (
