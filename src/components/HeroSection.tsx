@@ -1,7 +1,11 @@
 import useUmami from '../hooks/useUmami';
 import YouTubePlayer from './YoutubePlayer';
 
-export default function HeroSection(mediaType : string) {
+interface HeroSectionProps {
+  mediaType: string;
+}
+
+export default function HeroSection( { mediaType } : HeroSectionProps) {
   const { trackEvent } = useUmami();
   return (
     <section className="hero-section pixel-border">

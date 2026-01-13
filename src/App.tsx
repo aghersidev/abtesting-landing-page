@@ -71,7 +71,7 @@ const App: React.FC = () => {
     };
   }, [trackEvent]);
   const AppContent = () => {
-    const mediaType = gb.getFeatureValue("mediaType", "trailer");
+    const mediaType : string = gb.getFeatureValue("mediaType", "trailer");
     trackEvent("page_view", { url: 'pixelreborn' });
 
     return (
