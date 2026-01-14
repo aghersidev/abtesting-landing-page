@@ -1,73 +1,104 @@
 # Pixel Reborn Landing Page
 
-This repo contains a **landing page for Pixel Reborn** videogame, it is made with **React, TypeScript and Vite**, and highlights usage of A/B testing and event tracking with **GrowthBook** and **Umami**.
+This repository contains the **landing page for the Pixel Reborn videogame**.
+It is built with **React, TypeScript, and Vite**, and showcases **A/B testing and feature flags with GrowthBook**, along with **event and pageview tracking using Umami**.
 
 ---
 
 ## Pre-requisites
 
-* **Node.js** and **npm**
-* **Docker** y **Docker Compose** (to self host Umami and GrowthBook)
+* **Node.js** (>= 18 recommended) and **npm**
+* **Docker** and **Docker Compose** (optional, to self-host Umami and GrowthBook)
 
 ---
 
 ## Installation
 
-1. **Clone the repository**:
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/abtesting-landing-page.git
+git clone https://github.com/aghersidev/abtesting-landing-page.git
 cd abtesting-landing-page
 ```
 
-2. **Install dependencies**:
+### 2. Install dependencies
 
 ```bash
 npm ci
 ```
 
-3. **Environment variables**:
+### 3. Environment variables
 
-Modify the `.env` file with your own values:
+Create or update a `.env` file in the project root with the following values:
 
 ```env
-REACT_APP_UMAMI_SITE_ID=umami-site-id
-REACT_APP_UMAMI_URL=https://server-umami.com
-REACT_APP_GB_CLIENT_KEY=growthbook-client-key
+# ========= GrowthBook =========
+VITE_GROWTHBOOK_API_HOST=https://cdn.growthbook.io
+VITE_GROWTHBOOK_CLIENT_KEY=sdk-abc123
+VITE_GROWTHBOOK_DEV_MODE=true
+
+# ========= Umami =========
+VITE_UMAMI_SCRIPT_URL=https://analytics.tudominio.com/script.js
+VITE_UMAMI_WEBSITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+VITE_ENABLE_ANALYTICS=true
+
+# ========= App =========
+VITE_SITE_ID=pixelreborn
 ```
 
-> Note: these are public keys for the scripts to talk to the servers.
+> **Note**
+> These are **public client-side keys** used by the application to communicate with GrowthBook and Umami.
+> Do **not** store private or admin credentials in this file.
 
-4. **Launch app in dev mode**:
+### 4. Run the app in development mode
 
 ```bash
 npm run dev
 ```
 
-Your app will be live on something like `http://localhost:5173`.
+The app will be available at:
+
+```
+http://localhost:5173
+```
 
 ---
 
-## Launch self-hosted Umamim and GrowthBook
+## Self-hosting Umami and GrowthBook (Optional)
 
 ### Umami
+
+You can run Umami locally using Docker:
 
 ```bash
 docker run -d \
   -e DATABASE_URL=postgres://umami:umami@localhost:5432/umami \
-  -e UMAMI_ALLOWED_ORIGINS=https://localhost:5173 \
+  -e UMAMI_ALLOWED_ORIGINS=http://localhost:5173 \
   -p 3000:3000 \
   --name umami umami/umami
 ```
 
-Access `http://localhost:3000` to add  your **site** and get the `siteId`.
+Access:
+
+```
+http://localhost:3000
+```
+
+From the Umami dashboard:
+
+1. Create a **website**
+2. Copy the **Website ID**
+3. Set it as `VITE_UMAMI_WEBSITE_ID` in your `.env`
 
 ---
 
 ### GrowthBook
 
+Example `docker-compose.yml` for GrowthBook:
+
 ```yaml
 version: "3.8"
+
 services:
   postgres:
     image: postgres:15
@@ -98,33 +129,54 @@ services:
       - "3000:3000"
 ```
 
-Access `http://localhost:3000` to create experiments and genereate the **clientKey**.
+Access the GrowthBook UI at:
+
+```
+http://localhost:3000
+```
+
+From there:
+
+1. Create a project
+2. Generate a **Client Key**
+3. Set it as `VITE_GROWTHBOOK_CLIENT_KEY` in your `.env`
 
 ---
 
-### Configure Feature Flags
+## Configure Feature Flags
 
-1. Log into **GrowthBook UI**.
-2. Create a **Feature Flag** called:
+1. Log in to the **GrowthBook UI**
+2. Create a **Feature Flag** named:
 
 ```
 mediaType
 ```
 
-3. Define two variations:
+3. Add the following variations:
 
 * `"trailer"`
 * `"images"`
+
+This flag is used by the landing page to switch media content for A/B testing.
 
 ---
 
 ## Usage
 
-* App runs with **A/B testing GrowthBook** and **tracking with Umami**.
-* `useUmami` sends eventos and views.
+* The app uses **GrowthBook** for feature flags and A/B testing.
+* **Umami** tracks:
+
+  * Page views
+  * Custom events
+* Analytics can be toggled using:
+
+```env
+VITE_ENABLE_ANALYTICS=true
+```
 
 ---
 
-## Licence
+## License
 
-This project is under **MIT License**. Read the LICENSE.
+This project is licensed under the **MIT License**.
+See the `LICENSE` file for more details.
