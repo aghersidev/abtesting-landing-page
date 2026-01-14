@@ -25,8 +25,8 @@ const getOrCreateUserId = (): string => {
 }
 
 const gb = new GrowthBook({
-  apiHost: "https://cdn.growthbook.io",
-  clientKey: "sdk-abc123",
+  apiHost: import.meta.env.VITE_GROWTHBOOK_API_HOST,
+  clientKey: import.meta.env.VITE_GROWTHBOOK_CLIENT_KEY,
   enableDevMode: true,
   // A/B testing
   // Called every time a user is put into an experiment
